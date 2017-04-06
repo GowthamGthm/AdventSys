@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AdventSys</string>
+
+
+
+    <string name="clear_pad">Clear </string>
+    <string name="compress_signature">Compress </string>
+    <string name="save_signature">Save </string>
+    <string name="submit">SUBMIT</string>
+</resources>

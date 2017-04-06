@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "227635697509",
+    "firebase_url": "https://advent-sys.firebaseio.com",
+    "project_id": "advent-sys",
+    "storage_bucket": "advent-sys.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227635697509:android:91375e6558544e4b",
+        "android_client_info": {
+          "package_name": "com.advent.sys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227635697509-ign3bvumm09a4222n7o8certjpvddhup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0-rDuBTk5eKsq7rIHYEMRg9oS6CkJbfc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

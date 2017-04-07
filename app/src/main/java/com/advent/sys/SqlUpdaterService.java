@@ -12,9 +12,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -27,18 +32,18 @@ public class SqlUpdaterService extends IntentService {
 
     public static final String TAG = SqlUpdaterService.class.getSimpleName();
 
-    public static String KEY_TRIP_ID;
-    public static String KEY_TRIP_DATE;
+    public static String KEY_TRIP_ID = "trip_id";
+    public static String KEY_TRIP_DATE = "trip_date";
 
-    public static String KEY_START_KM;
-    public static String KEY_END_KM;
+    public static String KEY_START_KM = "start_km ";
+    public static String KEY_END_KM = "end_km";
 
-    public static String KEY_START_DATE;
-    public static String KEY_END_DATE;
+    public static String KEY_START_DATE = "start_date";
+    public static String KEY_END_DATE = "end_date";
 
-    public static String KEY_USERNAME;
-    public static String KEY_REMARKS;
-    public static String KEY_SIGNATURE;
+    public static String KEY_USERNAME = "user_name";
+    public static String KEY_REMARKS = "remarks";
+    public static String KEY_SIGNATURE = "signature";
 
 
     /**
@@ -84,10 +89,10 @@ public class SqlUpdaterService extends IntentService {
                 Log.e(TAG, "  " + cursor.getString(cursor.getColumnIndex(dbHandler.KEY_END_DATE)));
                 Log.e(TAG, "  " + cursor.getString(cursor.getColumnIndex(dbHandler.KEY_USERNAME)));
                 Log.e(TAG, "  " + cursor.getString(cursor.getColumnIndex(dbHandler.KEY_REMARKS)));
-             //   Log.e(TAG, "  " + cursor.getBlob(cursor.getColumnIndex(dbHandler.KEY_SIGNATURE)));
+                //   Log.e(TAG, "  " + cursor.getBlob(cursor.getColumnIndex(dbHandler.KEY_SIGNATURE)));
 
 
-                uploadTripData(
+                uploadTripDataJson(
                         cursor.getInt(cursor.getColumnIndex(dbHandler.KEY_TRIP_ID)),
                         cursor.getString(cursor.getColumnIndex(dbHandler.KEY_TRIP_DATE)),
 
@@ -127,8 +132,9 @@ public class SqlUpdaterService extends IntentService {
                     public void onErrorResponse(VolleyError volleyError) {
 
                         //Showing toast
-                        Toast.makeText(SqlUpdaterService.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
-                        Log.e(TAG, volleyError.getMessage().toString());
+                        // Toast.makeText(SqlUpdaterService.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        // Log.e(TAG, volleyError.getMessage().toString());
+                        VolleyLog.e("Error: ", volleyError.toString());
                     }
                 }) {
             @Override
@@ -140,8 +146,8 @@ public class SqlUpdaterService extends IntentService {
                 //Creating parameters
                 Map<String, String> params = new Hashtable<String, String>();
 
-                Log.e(TAG," hash Map values ");
-                Log.e(TAG," " +trip_id+ "\n" +trip_date+ "\n " +startKm+ "\n " +endKm+ "\n " +startDate+ "\n " +endDate+ "\n " +userName+ "\n "+remarks);
+                Log.e(TAG, " hash Map values ");
+                Log.e(TAG, " " + trip_id + "\n" + trip_date + "\n " + startKm + "\n " + endKm + "\n " + startDate + "\n " + endDate + "\n " + userName + "\n " + remarks + "\n" + stringSignature);
 
                 //Adding parameters
                 params.put(KEY_TRIP_ID, Integer.toString(trip_id));
@@ -166,6 +172,65 @@ public class SqlUpdaterService extends IntentService {
         Log.e(TAG, " before adding request queue");
         SingletonForVolley.getInstance(this).addToRequestQueue(stringRequest);
         Log.e(TAG, "After Adding Request Queue");
+
+    }
+
+
+    private void uploadTripDataJson(final int trip_id, final String trip_date, final int startKm,
+                                    final int endKm, final String startDate, final String endDate,
+                                    final String userName, final String remarks, final byte[] signature) {
+
+        Map<String, String> postParam = new HashMap<String, String>();
+
+        String stringSignature = BitmapUtility.getStringImage(signature);
+
+        postParam.put(KEY_TRIP_ID, Integer.toString(trip_id));
+        postParam.put(KEY_TRIP_DATE, trip_date);
+
+        postParam.put(KEY_START_KM, String.valueOf(startKm));
+        postParam.put(KEY_END_KM, String.valueOf(endKm));
+
+        postParam.put(KEY_START_DATE, startDate);
+        postParam.put(KEY_END_DATE, endDate);
+
+        postParam.put(KEY_USERNAME, userName);
+        postParam.put(KEY_REMARKS, remarks);
+        postParam.put(KEY_SIGNATURE, stringSignature);
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                Constants.TRIP_DETAILS_URL, new JSONObject(postParam),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                        VolleyLog.e(TAG, "On Response :  " + response.toString());
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e(TAG, "Error: " + error.getMessage());
+
+            }
+        }) {
+            
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8" );
+                return headers;
+            }
+
+
+        };
+
+        // Adding request to request queue
+       // AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+
+        SingletonForVolley.getInstance(this).addToRequestQueue(jsonObjReq);
 
     }
 }

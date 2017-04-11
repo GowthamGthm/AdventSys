@@ -2,226 +2,274 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/form1LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
+    android:background="@drawable/splash_bg"
+
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
-        <ScrollView
+        <!-- <ScrollView
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:focusableInTouchMode="true"
+             android:background="#FFFFFF">-->
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/form1NestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-                <TextView
-                    android:layout_width="122dp"
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Trip ID" />
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_lock"
+                    app:mtf_openKeyboardOnFocus="true">
 
-                <TextView
-                    android:id="@+id/txtTripId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="txt_tripid" />
-
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Date" />
-
-                <TextView
-                    android:id="@+id/txt_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="" />
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Start KM" />
-
-                <EditText
-                    android:id="@+id/et_start_km"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:text="" />
-
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="End KM" />
-
-                <EditText
-                    android:id="@+id/et_end_km"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:text="" />
-
-                <!---                           -->
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Start Date and Time " />
-
-                <TextView
-                    android:id="@+id/txt_start_date_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="" />
-
-
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="End Date and Time " />
-
-                <TextView
-                    android:id="@+id/txt_end_date_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="" />
-
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="User Name" />
-
-                <EditText
-                    android:id="@+id/et_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="" />
-
-                <!---                           -->
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Signature " />
-
-                <!-- <ImageView
-                     android:id="@+id/img_signature"
-                     android:layout_width="match_parent"
-                     android:layout_height="120dp"
-                     android:layout_marginTop="5dp"
-                     android:gravity="center"
-                     android:text="" />-->
-
-                <com.williamww.silkysignature.views.SignaturePad
-                    android:id="@+id/signature_pad"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-
-                <LinearLayout
-                    android:id="@+id/buttons_container"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
-                    android:paddingTop="16dp">
-
-                    <Button
-                        android:id="@+id/mSaveButton"
-                        android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/et_trip_id"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginTop="5dp"
                         android:enabled="false"
-                        android:maxLines="1"
-                        android:text="@string/save_signature" />
-
-                    <Button
-                        android:id="@+id/mCompressButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:maxLines="1"
-                        android:text="@string/compress_signature" />
-
-                    <Button
-                        android:id="@+id/mClearButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:maxLines="1"
-                        android:text="@string/clear_pad" />
-
-                </LinearLayout>
+                        android:gravity="center"
+                        android:hint="@string/str_trip_id"
+                        android:text="@string/str_txt_tripid" />
 
 
-                <!---                           -->
+                </com.github.florent37.materialtextfield.MaterialTextField>
 
-
-                <TextView
+                <com.github.florent37.materialtextfield.MaterialTextField
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Remarks" />
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_lock"
+                    app:mtf_openKeyboardOnFocus="true">
 
-                <EditText
-                    android:id="@+id/et_remarks"
+
+                    <EditText
+                        android:id="@+id/et_trip_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:hint="@string/str_trip_date"
+                        android:text="" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_start"
+                    app:mtf_openKeyboardOnFocus="true">
 
-                    <requestFocus />
-                </EditText>
+                    <EditText
+                        android:id="@+id/et_start_km"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center"
+                        android:hint="@string/str_start_km"
+                        android:inputType="number"
+                        android:text="" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
 
 
-                <!---                           -->
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_stop"
+                    app:mtf_openKeyboardOnFocus="true">
+
+
+                    <EditText
+                        android:id="@+id/et_end_km"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/str_end_km"
+                        android:inputType="number"
+                        android:text="" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_date_range"
+                    app:mtf_openKeyboardOnFocus="true">
+
+
+                    <EditText
+                        android:id="@+id/et_start_date_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/str_start_date_and_time"
+                        android:inputType="none"
+                        android:textIsSelectable="true"
+                        android:text="" />
+                    <!--android:enabled="false"-->
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_date_range"
+                    app:mtf_openKeyboardOnFocus="true">
+
+
+                    <EditText
+                        android:id="@+id/et_end_date_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:textIsSelectable="true"
+                        android:hint="@string/str_end_date_and_time"
+                        android:text="" />
+                    <!--android:enabled="false"-->
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_user"
+                    app:mtf_openKeyboardOnFocus="true">
+
+
+                    <EditText
+                        android:id="@+id/et_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/str_user_name"
+                        android:text="" />
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_signature"
+                    app:mtf_openKeyboardOnFocus="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/str_signature"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20sp" />
+
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
+
+                <ImageView
+                    android:id="@+id/img_signature"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:text="" />
+
+
+                <com.github.florent37.materialtextfield.MaterialTextField
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:mtf_cardCollapsedHeight="4dp"
+                    app:mtf_hasFocus="false"
+                    app:mtf_image="@drawable/ic_remarks"
+                    app:mtf_openKeyboardOnFocus="true">
+
+                    <EditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/str_remarks"
+                        android:inputType="textMultiLine" />
+
+                </com.github.florent37.materialtextfield.MaterialTextField>
 
 
                 <Button
@@ -233,11 +281,8 @@
                     android:text="@string/submit" />
 
 
-                <!---                           -->
-
-
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 </LinearLayout>

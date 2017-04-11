@@ -1,8 +1,5 @@
 package com.advent.sys;
 
-/**
- * Created by Gowtham on 04/03/17.
- */
 
 public class ToDo {
 

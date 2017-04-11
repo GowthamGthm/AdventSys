@@ -27,17 +27,16 @@ dependencies {
     })
 
     // butter knife ...
-    
 
     //  for date and time picker
-    
+
     // for signature
     // for permission handler
-    
+
     // for volley
-    
-    
-compile 'com.android.support:appcompat-v7:25.3.0'
+
+
+    compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.android.support:design:25.3.0'
     compile 'com.github.florent37:singledateandtimepicker:1.0.9'
@@ -49,6 +48,10 @@ compile 'com.android.support:appcompat-v7:25.3.0'
     testCompile 'junit:junit:4.12'
     testCompile 'com.android.support:support-compat:25.3.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    compile 'com.github.florent37:materialtextfield:1.0.7'
+    compile 'com.google.code.gson:gson:2.8.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

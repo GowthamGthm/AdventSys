@@ -7,4 +7,18 @@
     <string name="compress_signature">Compress </string>
     <string name="save_signature">Save </string>
     <string name="submit">SUBMIT</string>
+    <string name="ok_signature">Ok</string>
+    <string name="str_sign_below">Sign Below</string>
+    <string name="str_ok">Ok</string>
+    <string name="str_clear">Clear</string>
+    <string name="str_remarks">Remarks</string>
+    <string name="str_signature">Signature</string>
+    <string name="str_user_name">User Name</string>
+    <string name="str_end_date_and_time">End Date And Time</string>
+    <string name="str_start_date_and_time">Start Date And Time</string>
+    <string name="str_end_km">End Km</string>
+    <string name="str_start_km">Start Km</string>
+    <string name="str_trip_date">Trip Date</string>
+    <string name="str_txt_tripid">txt_tripid</string>
+    <string name="str_trip_id">Trip Id</string>
 </resources>

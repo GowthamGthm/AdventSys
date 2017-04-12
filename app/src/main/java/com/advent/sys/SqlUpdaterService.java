@@ -10,9 +10,11 @@ import android.widget.Toast;
 import com.advent.sys.Model.Trip;
 import com.advent.sys.Model.TripDetails;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -144,6 +146,7 @@ public class SqlUpdaterService extends IntentService {
 
         try {
             jsonObject.put("tripDetails",tripDetails);
+            Log.e(TAG, " jsonresponseObject "  +jsonObject.toString());
 
         }
         catch (JSONException e) {
@@ -198,6 +201,10 @@ public class SqlUpdaterService extends IntentService {
                     }
                 }
         );
+
+        int socketTimeout = 60 * 1000 ;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        tripDetailsRequest.setRetryPolicy(policy);
         SingletonForVolley.getInstance(this).addToRequestQueue(tripDetailsRequest);
 
 

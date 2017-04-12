@@ -111,7 +111,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // getting the database to write
         ContentValues values = new ContentValues();
         int i;
-        for (i = 1; i < 100; i++) {
+        for (i = 1; i < 1000; i++) {
             values.put(KEY_ID, i); // Contact Name
             // Inserting Row
             db.insertWithOnConflict(TABLE_TRIP_ID, null, values, SQLiteDatabase.CONFLICT_ABORT);

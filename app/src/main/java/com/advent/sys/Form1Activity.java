@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -59,8 +60,11 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
 
     // for double picker date and time together
     DoubleDateAndTimePickerDialog.Builder doubleBuilder;
+    SingleDateAndTimePickerDialog.Builder singleBuilder;
 
     SimpleDateFormat simpleDateFormat;
+    public static final String START = "Start";
+    public static final String END = "End";
 
 
     @Override
@@ -99,7 +103,8 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
 
 
         btn_submit.setOnClickListener(this);
-        et_start_date_time.setOnFocusChangeListener((View.OnFocusChangeListener) this);
+        et_start_date_time.setOnFocusChangeListener(this);
+        et_end_date_time.setOnFocusChangeListener(this);
         img_signature.setOnClickListener(this);
 
 
@@ -169,7 +174,7 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
 
         if (requestCode == 2) {
             String result = data.getStringExtra(Form2Activity.KEY_NOT_SIGNED);
-            Log.e(TAG," " +result);
+            Log.e(TAG, " " + result);
 
             if (result.equals(Constants.KEY_YES)) {
 
@@ -180,7 +185,7 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
             } else {
 
                 signImageByte = data.getByteArrayExtra(Form2Activity.KEY_SIGNATURE_BYTE);
-                Log.e(TAG," in activity result else part ");
+                Log.e(TAG, " in activity result else part ");
                 img_signature.setImageBitmap(BitmapUtility.getImage(signImageByte));
 
             }
@@ -191,8 +196,143 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
 
 
 
+    public void showDateTimePicker(final String startOrEnd) {
 
-    private void showDateTimePicker() {
+
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.YEAR, 2017);
+        final Date minDate = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, 5);
+        // final Date maxDate = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        //   final Date defaultDate = calendar.getTime();
+
+        singleBuilder = new SingleDateAndTimePickerDialog.Builder(this)
+                .curved()
+                .backgroundColor(Color.WHITE)
+                .mainColor(Color.BLUE)
+                .mustBeOnFuture()
+                .minutesStep(5)
+                .title(startOrEnd)
+                .listener(new SingleDateAndTimePickerDialog.Listener() {
+                    @Override
+                    public void onDateSelected(Date date) {
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
+
+
+                        if (startOrEnd.equals(START)) {
+
+                            String formattedStartDate = df.format(date);
+                            et_start_date_time.setText(formattedStartDate);
+                        } else {
+                            String formattedEndDate = df.format(date);
+                            et_end_date_time.setText(formattedEndDate);
+                        }
+
+
+                    }
+                });
+        singleBuilder.display();
+
+
+    }
+
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(et_start_date_time.getWindowToken(), 0);
+
+        switch (v.getId()) {
+
+            case R.id.et_start_date_time:
+                showDateTimePicker(START);
+                break;
+
+            case R.id.et_end_date_time:
+                showDateTimePicker(END);
+                break;
+
+
+        }
+
+
+
+    }
+
+
+    // method of submit button
+    private void collectDataAndInsertToSqlite() {
+
+        tripId = Integer.parseInt(et_trip_id.getText().toString());
+
+
+        startKm = Integer.parseInt(et_start_km.getText().toString());
+        endKm = Integer.parseInt(et_end_km.getText().toString());
+        userName = et_user_name.getText().toString();
+        remarks = et_remarks.getText().toString();
+
+        //  Bitmap signatureBitmap = signaturePad.getSignatureBitmap();
+
+        //    byte[] image = BitmapUtility.getBytes(signatureBitmap);
+
+        //   byte[] image = getBytesOfSignature(signatureBitmap);
+
+        DataBaseHandler db = new DataBaseHandler(this);
+        Log.e(TAG, "Inserting into TripDetails ");
+        db.insertIntoTripDetails(tripId, startKm, endKm, startDate, endDate, userName, remarks, signImageByte);
+        Log.e(TAG, " inserted into TripDetails");
+        Toast.makeText(this, "inserted the values into trip details ", Toast.LENGTH_LONG).show();
+
+        checkNetConnectivity();
+    }
+
+    private void checkNetConnectivity() {
+
+
+        if ((isNetworkAvailable()) && (isOnline())) {
+            Log.e(TAG, " Net Connectivity Available ");
+            Intent newIntent = new Intent(this, SqlUpdaterService.class);
+            this.startService(newIntent);
+
+        }
+
+    }
+
+
+    // method to check if network is available
+    public Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    // method to check if device is online
+    public boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+   /* private void showDateTimePicker() {
 
         Log.e(TAG, " in method  of onclick of start date ");
         final Calendar calendar = Calendar.getInstance();
@@ -240,81 +380,7 @@ public class Form1Activity extends AppCompatActivity implements View.OnClickList
                 });
         doubleBuilder.display();
     }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-       // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        InputMethodManager imm = (InputMethodManager)
-        getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(et_start_date_time.getWindowToken(), 0);
-
-        showDateTimePicker();
-    }
-
-
-    // method of submit button
-    private void collectDataAndInsertToSqlite() {
-
-        tripId = Integer.parseInt(et_trip_id.getText().toString());
-
-
-        startKm = Integer.parseInt(et_start_km.getText().toString());
-        endKm = Integer.parseInt(et_end_km.getText().toString());
-        userName = et_user_name.getText().toString();
-        remarks = et_remarks.getText().toString();
-
-        //  Bitmap signatureBitmap = signaturePad.getSignatureBitmap();
-
-        //    byte[] image = BitmapUtility.getBytes(signatureBitmap);
-
-        //   byte[] image = getBytesOfSignature(signatureBitmap);
-
-        DataBaseHandler db = new DataBaseHandler(this);
-        Log.e(TAG, "Inserting into TripDetails ");
-        db.insertIntoTripDetails(tripId, startKm, endKm, startDate, endDate, userName, remarks, signImageByte);
-        Log.e(TAG, " inserted into TripDetails");
-        Toast.makeText(this, "inserted the values into trip details ", Toast.LENGTH_LONG).show();
-
-         checkNetConnectivity();
-    }
-
-    private void checkNetConnectivity() {
-
-
-        if((isNetworkAvailable()) && (isOnline()))
-        {
-            Log.e(TAG , " Net Connectivity Available ");
-            Intent newIntent = new Intent(this, SqlUpdaterService.class);
-            this.startService(newIntent);
-
-        }
-
-    }
-
-
-    // method to check if network is available
-    public Boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
-    }
-
-    // method to check if device is online
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
+*/
 
 
 }

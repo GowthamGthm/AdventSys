@@ -156,8 +156,8 @@
                         android:gravity="center"
                         android:hint="@string/str_start_date_and_time"
                         android:inputType="none"
-                        android:textIsSelectable="true"
-                        android:text="" />
+                        android:text=""
+                        android:textIsSelectable="true" />
                     <!--android:enabled="false"-->
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -181,10 +181,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:inputType="none"
-                        android:textIsSelectable="true"
                         android:hint="@string/str_end_date_and_time"
-                        android:text="" />
+                        android:inputType="none"
+                        android:text=""
+                        android:textIsSelectable="true" />
                     <!--android:enabled="false"-->
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
@@ -265,9 +265,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:enabled="true"
+                        android:focusable="true"
                         android:gravity="start|top"
                         android:hint="@string/str_remarks"
-                        android:inputType="textMultiLine" />
+                        android:inputType="textMultiLine"
+                        android:isScrollContainer="true"
+                        android:maxLines="6"
+                        android:minLines="6" />
 
                 </com.github.florent37.materialtextfield.MaterialTextField>
 

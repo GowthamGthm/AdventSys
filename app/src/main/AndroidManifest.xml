@@ -24,9 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Form2Activity" />
-        <activity android:name=".Form1Activity"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Form2Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Form1Activity"
+            android:screenOrientation="portrait"/>
 
 
 // broadcast receiver registered

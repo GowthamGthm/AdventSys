@@ -15,7 +15,7 @@ public class Constants {
 
 
 
-  public static final String TRIP_DETAILS_URL = "http://127.0.0.1/trip-register/index.php";
+  public static final String TRIP_DETAILS_URL = "http://192.168.0.6/trip-register/index.php";
 
 
   //  in emulator - http://10.0.2.2/trip-register/index.php
